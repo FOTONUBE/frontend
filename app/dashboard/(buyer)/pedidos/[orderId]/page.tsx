@@ -53,7 +53,7 @@ export default function OrderDetailPage() {
 
     try {
       const res = await fetch(
-        `https://nest-fotonube.onrender.com/api/buyer/orders/${currentOrder.id}/pay`,
+        `https://backend-4bkl.onrender.com/api/buyer/orders/${currentOrder.id}/pay`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

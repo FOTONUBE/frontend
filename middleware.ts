@@ -9,17 +9,18 @@ const roleRoutes = {
   photographer: [
     "/dashboard/general",
     "/dashboard/newalbum",
-    "/dashboard/albums", // incluye /albums/:id
-    "/dashboard/orders", // incluye /orders/:id
+    "/dashboard/albums",
+    "/dashboard/orders",
     "/dashboard/subscription",
-    "/dashboard/profile-photographer",
+    "/dashboard/profile",
   ],
   buyer: [
     "/dashboard/ingresar-album",
-    "/dashboard/ver-album", // incluye /ver-album/:albumId
+    "/dashboard/ver-album",
     "/dashboard/como-comprar",
-    "/dashboard/pedidos", // incluye /pedidos/:orderId
-    "/dashboard/profile-buyer",
+    "/dashboard/pedidos",
+    "/dashboard/cart",
+    "/dashboard/profile",
   ],
 };
 
@@ -42,13 +43,15 @@ export async function middleware(request: NextRequest) {
     const payload: any = (await jwtVerify(token, secret)).payload;
     const userRole = payload.role;
 
+    // Redirigir a dashboard si intenta entrar a login/register
     if (isAuthPage) {
       url.pathname = "/dashboard";
       return NextResponse.redirect(url);
     }
 
-    // Onboarding fotógrafos
     const isPhotographer = userRole === "photographer";
+
+    // Onboarding solo para fotógrafos
     const needsOnboarding =
       isPhotographer &&
       (!payload.name ||
@@ -57,21 +60,19 @@ export async function middleware(request: NextRequest) {
           (acc: any) => acc.provider === "mercadopago" && acc.accessToken
         ));
 
-    const profilePath = "/dashboard/profile-photographer";
-
-    if (needsOnboarding && url.pathname !== profilePath) {
-      url.pathname = profilePath;
+    if (needsOnboarding && url.pathname !== "/dashboard/profile") {
+      url.pathname = "/dashboard/profile";
       return NextResponse.redirect(url);
     }
 
-    // Validación rutas por rol (incluye dinámicas con startsWith)
+    // Validación rutas por rol
     const allowedRoutes = roleRoutes[userRole as keyof typeof roleRoutes] || [];
     const isAllowed = allowedRoutes.some((route) =>
       url.pathname.startsWith(route)
     );
 
     if (!isAllowed && isProtectedPage) {
-      // Redirige a la ruta principal del rol
+      // Redirige a la ruta principal según rol
       url.pathname =
         userRole === "photographer"
           ? "/dashboard/general"

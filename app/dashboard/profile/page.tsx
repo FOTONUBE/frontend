@@ -2,7 +2,7 @@
 
 import { uploadFile } from "@/actions/files/files.action";
 import { useAuthStore } from "@/store/useAuthStore";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function ProfileScreen() {
@@ -47,8 +47,6 @@ export default function ProfileScreen() {
     setUploading(false);
   };
 
-  console.log(user);
-
   const handleVincular = () => {
     const clientId = process.env.NEXT_PUBLIC_MP_CLIENT_ID;
     const redirectUri = process.env.NEXT_PUBLIC_MP_REDIRECT_URI;
@@ -56,9 +54,13 @@ export default function ProfileScreen() {
     window.location.href = url;
   };
 
-  const needsMpLink = !user.paymentAccounts?.some(
-    (acc) => acc.provider === "mercadopago" && acc.accessToken
-  );
+  // Solo fotógrafos necesitan vincular MP
+  const isPhotographer = user.role === "photographer";
+  const needsMpLink =
+    isPhotographer &&
+    !user.paymentAccounts?.some(
+      (acc) => acc.provider === "mercadopago" && acc.accessToken
+    );
 
   return (
     <div className="max-w-5xl mx-auto px-6 space-y-8">
@@ -66,31 +68,32 @@ export default function ProfileScreen() {
         Mi Perfil
       </h1>
 
-      {/* Sección MercadoPago */}
-      {needsMpLink ? (
-        <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-700 mb-2">
-            Vincular cuenta de MercadoPago
-          </h2>
-          <p className="text-gray-600 mb-4">
-            Para poder recibir pagos directamente, vincula tu cuenta de
-            MercadoPago.
-          </p>
-          <button
-            onClick={handleVincular}
-            className="w-full bg-cyan-600 text-white px-6 py-3 rounded-lg hover:bg-cyan-700 transition"
-          >
-            Vincular con MP
-          </button>
-        </div>
-      ) : (
-        <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200 text-center text-gray-700">
-          <h2 className="text-xl font-semibold mb-2">
-            Cuenta de MercadoPago vinculada
-          </h2>
-          <p>¡Ya podés recibir pagos directamente en tu cuenta!</p>
-        </div>
-      )}
+      {/* Sección MercadoPago solo para fotógrafos */}
+      {isPhotographer &&
+        (needsMpLink ? (
+          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">
+            <h2 className="text-xl font-semibold text-gray-700 mb-2">
+              Vincular cuenta de MercadoPago
+            </h2>
+            <p className="text-gray-600 mb-4">
+              Para poder recibir pagos directamente, vincula tu cuenta de
+              MercadoPago.
+            </p>
+            <button
+              onClick={handleVincular}
+              className="w-full bg-cyan-600 text-white px-6 py-3 rounded-lg hover:bg-cyan-700 transition"
+            >
+              Vincular con MP
+            </button>
+          </div>
+        ) : (
+          <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200 text-center text-gray-700">
+            <h2 className="text-xl font-semibold mb-2">
+              Cuenta de MercadoPago vinculada
+            </h2>
+            <p>¡Ya podés recibir pagos directamente en tu cuenta!</p>
+          </div>
+        ))}
 
       {/* Sección Datos Personales */}
       <div className="bg-white p-6 rounded-xl shadow-lg border border-gray-200">

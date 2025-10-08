@@ -61,7 +61,7 @@ export default function DashboardHeader() {
           <CartButton />
 
           <Link
-            href="/dashboard/profile-photographer"
+            href="/dashboard/profile"
             className="hidden lg:flex p-2 rounded-full hover:bg-gray-100"
           >
             <Settings className="w-5 h-5 text-gray-600" />
