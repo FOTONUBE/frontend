@@ -16,10 +16,10 @@ type AuthStatus = "authenticated" | "unauthenticated" | "checking";
 interface AuthState {
   user?: GetUserResponse;
   status: AuthStatus;
-  loading?: boolean; // 👈 agregado
+  loading?: boolean;
   error?: string;
 
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<GetUserResponse | null>;
   register: (
     email: string,
     password: string,
@@ -43,22 +43,21 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     set({ status: "checking", error: undefined });
 
     const result = await authLogin(email, password);
-
     if (!result.success) {
       set({ status: "unauthenticated", error: result.error });
       toast.error(result.error || "Error al iniciar sesión ❌");
-      return false;
+      return null;
     }
 
     try {
       const user = await getCurrentUser();
       set({ user, status: "authenticated", error: undefined });
       toast.success("Bienvenido de nuevo 👋");
-      return true;
+      return user; // 👈 retorna el usuario directamente
     } catch {
       set({ status: "unauthenticated", error: "Error al obtener el usuario" });
       toast.error("Error al obtener la información del usuario ❌");
-      return false;
+      return null;
     }
   },
 

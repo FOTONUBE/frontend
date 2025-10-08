@@ -12,17 +12,16 @@ export default function LoginPage() {
   const [forgotEmail, setForgotEmail] = useState("");
 
   const router = useRouter();
-  const { login, status, requestPasswordReset, loading } = useAuthStore();
+  const { login, status, requestPasswordReset, loading, user } = useAuthStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const ok = await login(email, password);
-    if (!ok) return;
+    const user = await login(email, password);
+    if (!user) return;
 
-    const currentUser = useAuthStore.getState().user;
     const route =
-      roleRoutes[currentUser?.role || "DEFAULT"] || roleRoutes.DEFAULT;
+      roleRoutes[user.role?.toUpperCase() || "DEFAULT"] || roleRoutes.DEFAULT;
 
     router.push(route);
   };
