@@ -124,17 +124,14 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       return false;
     }
 
-    try {
-      const updatedUser = await getCurrentUser();
-      set({ user: updatedUser, loading: false });
-      toast.success("Usuario actualizado correctamente ✅");
-      return true;
-    } catch (err) {
-      console.error(err);
-      set({ loading: false, error: "Error al obtener la info del usuario" });
-      toast.error("No se pudo actualizar la info del usuario ❌");
-      return false;
-    }
+    get().logout();
+    toast.success(
+      "Usuario actualizado correctamente. Por favor, vuelve a iniciar sesión ✅"
+    );
+
+    window.location.href = "/login";
+
+    return true;
   },
 
   resetPassword: async (token, newPassword) => {

@@ -1,6 +1,7 @@
 import { GetUserResponse } from "@/interfaces/user/get-user.interface";
 import { UpdateUserPayload } from "@/interfaces/user/update-user.interface";
 import claraApi from "@/lib/axios";
+import Cookies from "js-cookie";
 
 export const getCurrentUser = async (): Promise<GetUserResponse> => {
   const { data } = await claraApi.get<GetUserResponse>("/users/me");
@@ -9,17 +10,17 @@ export const getCurrentUser = async (): Promise<GetUserResponse> => {
 
 export const updateUser = async (
   payload: UpdateUserPayload
-): Promise<{ success: boolean; data?: GetUserResponse; error?: string }> => {
+): Promise<{ success: boolean; error?: string }> => {
   try {
-    const { data } = await claraApi.patch<GetUserResponse>(
-      "/users/me",
-      payload
-    );
-    return { success: true, data };
+    // Actualizamos datos del usuario
+    await claraApi.patch("/users/me", payload);
+
+    // No hacemos refresh del token
+    return { success: true };
   } catch (error: any) {
     return {
       success: false,
-      error: error?.response?.data?.message || "Error al actualizar usuario",
+      error: error?.response?.data?.message || error.message,
     };
   }
 };
