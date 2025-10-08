@@ -109,6 +109,11 @@ export default function AlbumDetailPage() {
       return;
     }
 
+    if (images.length > 20) {
+      toast.error("No podés subir más de 20 fotos a la vez ❌");
+      return;
+    }
+
     const totalSizeMb = images.reduce(
       (sum, file) => sum + file.size / (1024 * 1024),
       0

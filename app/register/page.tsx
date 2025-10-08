@@ -17,7 +17,6 @@ export default function RegisterPage() {
 
     const ok = await register(email, password, role);
     if (!ok) {
-      alert("Hubo un error al registrarse");
       return;
     }
 
