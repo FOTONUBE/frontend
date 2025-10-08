@@ -70,8 +70,6 @@ export default function OrderDetailPage() {
     }
   };
 
-  console.log(currentOrder);
-
   return (
     <div className="container mx-auto px-4">
       {/* Título */}
