@@ -22,13 +22,15 @@ import {
   BarChart2,
 } from "lucide-react";
 
-export default function DashboardSidebar() {
+export default function DashboardSidebar({ showLinks = true }) {
+  // Hooks siempre al principio
   const { user, logout } = useAuthStore();
   const pathname = usePathname();
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
-  if (!user) return null;
+  // Condición de renderizado después de los hooks
+  if (!user || !showLinks) return null;
 
   const photographerLinks = [
     { href: "/dashboard/general", text: "General", icon: BarChart2 },
