@@ -1,9 +1,9 @@
 import HomeLayoutWrapper from "@/components/HomeLayoutWrapper/HomeLayoutWrapper";
 import ClientProgressProvider from "@/components/ProviderProgressBar/ProviderProgressBar";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { Rubik } from "next/font/google";
 import { Toaster } from "sonner";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "./globals.css";
 

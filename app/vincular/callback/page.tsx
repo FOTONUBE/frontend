@@ -1,4 +1,3 @@
-// app/test/callback/page.tsx
 import { Suspense } from "react";
 import MpCallbackClient from "./MpCallbackClient";
 

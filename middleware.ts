@@ -4,35 +4,35 @@ import { jwtVerify } from "jose";
 
 const secret = new TextEncoder().encode(process.env.JWT_SECRET!);
 
-// Rutas exclusivas por rol, usando startsWith para rutas dinámicas
-const roleRoutes = {
-  photographer: [
-    "/dashboard/general",
-    "/dashboard/newalbum",
-    "/dashboard/albums",
-    "/dashboard/orders",
-    "/dashboard/subscription",
-    "/dashboard/profile",
-  ],
-  buyer: [
-    "/dashboard/ingresar-album",
-    "/dashboard/ver-album",
-    "/dashboard/como-comprar",
-    "/dashboard/pedidos",
-    "/dashboard/cart",
-    "/dashboard/profile",
-  ],
+const dashboardRoots = {
+  photographer: "/dashboard/fotografo/general",
+  buyer: "/dashboard/comprador/ingresar-album",
 };
 
+// Prefijo principal permitido por rol
+const roleRoutes = {
+  photographer: "/dashboard/fotografo",
+  buyer: "/dashboard/comprador",
+};
+
+// Rutas especiales accesibles por ambos roles
+const specialRoutes = [
+  "/dashboard/mp/callback",
+  "/dashboard/mp/success",
+  "/dashboard/mp/error",
+  "/dashboard/profile",
+];
+
 export async function middleware(request: NextRequest) {
-  const token = request.cookies.get("token")?.value;
   const url = request.nextUrl.clone();
+  const token = request.cookies.get("token")?.value;
 
-  const isAuthPage = url.pathname === "/login" || url.pathname === "/register";
-  const isProtectedPage = url.pathname.startsWith("/dashboard");
+  const isAuthPage = ["/login", "/register"].includes(url.pathname);
+  const isProtected = url.pathname.startsWith("/dashboard");
 
+  // 🔹 No hay token → redirigir al login si intenta acceder al dashboard
   if (!token) {
-    if (isProtectedPage) {
+    if (isProtected) {
       url.pathname = "/login";
       return NextResponse.redirect(url);
     }
@@ -40,49 +40,31 @@ export async function middleware(request: NextRequest) {
   }
 
   try {
-    const payload: any = (await jwtVerify(token, secret)).payload;
-    const userRole = payload.role;
+    const { payload }: any = await jwtVerify(token, secret);
+    const userRole = payload.role as "photographer" | "buyer";
 
-    // Redirigir a dashboard si intenta entrar a login/register
+    // 🔹 Si está logueado y entra a login/register → redirigir a su dashboard
     if (isAuthPage) {
-      url.pathname = "/dashboard";
+      url.pathname = dashboardRoots[userRole];
       return NextResponse.redirect(url);
     }
 
-    const isPhotographer = userRole === "photographer";
-
-    // Onboarding solo para fotógrafos
-    const needsOnboarding =
-      isPhotographer &&
-      (!payload.name ||
-        !payload.phone ||
-        !payload.paymentAccounts?.some(
-          (acc: any) => acc.provider === "mercadopago" && acc.accessToken
-        ));
-
-    if (needsOnboarding && url.pathname !== "/dashboard/profile") {
-      url.pathname = "/dashboard/profile";
-      return NextResponse.redirect(url);
-    }
-
-    // Validación rutas por rol
-    const allowedRoutes = roleRoutes[userRole as keyof typeof roleRoutes] || [];
-    const isAllowed = allowedRoutes.some((route) =>
+    // 🔹 Rutas especiales compartidas
+    const isSpecial = specialRoutes.some((route) =>
       url.pathname.startsWith(route)
     );
 
-    if (!isAllowed && isProtectedPage) {
-      // Redirige a la ruta principal según rol
-      url.pathname =
-        userRole === "photographer"
-          ? "/dashboard/general"
-          : "/dashboard/ingresar-album";
+    // 🔹 Validación de acceso por rol
+    const allowedRoot = roleRoutes[userRole];
+    if (isProtected && !url.pathname.startsWith(allowedRoot) && !isSpecial) {
+      url.pathname = dashboardRoots[userRole];
       return NextResponse.redirect(url);
     }
 
     return NextResponse.next();
-  } catch (error) {
-    if (isProtectedPage) {
+  } catch {
+    // 🔹 Token inválido o expirado → login
+    if (isProtected) {
       url.pathname = "/login";
       return NextResponse.redirect(url);
     }

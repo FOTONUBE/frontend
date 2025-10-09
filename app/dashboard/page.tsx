@@ -10,9 +10,9 @@ export default function DashboardPage() {
   useEffect(() => {
     if (!user) return; // todavía no cargó
     if (user.role === "photographer") {
-      router.replace("/dashboard/general");
+      router.replace("/dashboard/fotografo/general");
     } else {
-      router.replace("/dashboard/ingresar-album");
+      router.replace("/dashboard/comprador/ingresar-album");
     }
   }, [user]);
 

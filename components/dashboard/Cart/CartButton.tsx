@@ -10,7 +10,7 @@ export const CartButton = () => {
 
   return (
     <Link
-      href="/dashboard/cart"
+      href="/dashboard/comprador/cart"
       className="relative p-2 rounded-full hover:bg-gray-100"
     >
       <ShoppingCart className="w-6 h-6 text-gray-700" />

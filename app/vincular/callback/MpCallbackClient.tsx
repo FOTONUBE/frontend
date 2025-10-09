@@ -7,24 +7,30 @@ import { useMpStore } from "@/store/useMPStore";
 export default function MpCallbackClient() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const { linkAccount, status } = useMpStore();
+  const { linkAccount, status, clear } = useMpStore();
 
   useEffect(() => {
     const code = searchParams.get("code");
+
     if (!code) {
-      router.replace("/dashboard/mp/error");
+      router.replace("/dashboard/fotografo/mp/error");
       return;
     }
-    linkAccount(code);
-  }, [searchParams, linkAccount, router]);
 
-  useEffect(() => {
-    if (status === "success") {
-      router.replace("/dashboard/mp/success");
-    } else if (status === "error") {
-      router.replace("/mp/error");
-    }
-  }, [status, router]);
+    const handleLink = async () => {
+      await linkAccount(code);
+
+      if (useMpStore.getState().status === "success") {
+        router.replace("/dashboard/fotografo/mp/success");
+      } else {
+        router.replace("/dashboard/fotografo/mp/error");
+      }
+
+      clear();
+    };
+
+    handleLink();
+  }, [searchParams, linkAccount, router, clear]);
 
   return (
     <div className="h-screen w-full flex justify-center items-center">

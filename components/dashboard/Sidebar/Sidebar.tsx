@@ -33,18 +33,46 @@ export default function DashboardSidebar({ showLinks = true }) {
   if (!user || !showLinks) return null;
 
   const photographerLinks = [
-    { href: "/dashboard/general", text: "General", icon: BarChart2 },
-    { href: "/dashboard/newalbum", text: "Nuevo Álbum", icon: PlusSquare },
-    { href: "/dashboard/albums", text: "Álbumes", icon: Folder },
-    { href: "/dashboard/orders", text: "Pedidos", icon: ShoppingCart },
-    { href: "/dashboard/subscription", text: "Suscripción", icon: CreditCard },
+    { href: "/dashboard/fotografo/general", text: "General", icon: BarChart2 },
+    {
+      href: "/dashboard/fotografo/newalbum",
+      text: "Nuevo Álbum",
+      icon: PlusSquare,
+    },
+    { href: "/dashboard/fotografo/albums", text: "Álbumes", icon: Folder },
+    {
+      href: "/dashboard/fotografo/orders",
+      text: "Pedidos",
+      icon: ShoppingCart,
+    },
+    {
+      href: "/dashboard/fotografo/subscription",
+      text: "Suscripción",
+      icon: CreditCard,
+    },
   ];
 
   const buyerLinks = [
-    { href: "/dashboard/ingresar-album", text: "Acceder a Álbum", icon: Key },
-    { href: "/dashboard/ver-album", text: "Mis Álbumes", icon: FolderOpen },
-    { href: "/dashboard/como-comprar", text: "Cómo Comprar", icon: HelpCircle },
-    { href: "/dashboard/pedidos", text: "Mis Compras", icon: ShoppingCart },
+    {
+      href: "/dashboard/comprador/ingresar-album",
+      text: "Acceder a Álbum",
+      icon: Key,
+    },
+    {
+      href: "/dashboard/comprador/ver-album",
+      text: "Mis Álbumes",
+      icon: FolderOpen,
+    },
+    {
+      href: "/dashboard/comprador/como-comprar",
+      text: "Cómo Comprar",
+      icon: HelpCircle,
+    },
+    {
+      href: "/dashboard/comprador/pedidos",
+      text: "Mis Compras",
+      icon: ShoppingCart,
+    },
   ];
 
   const linksToShow =
@@ -161,7 +189,7 @@ export default function DashboardSidebar({ showLinks = true }) {
                 {/* Menú usuario */}
                 <div className="w-full border-t pt-3 px-6">
                   <Link
-                    href="/dashboard/profile-photographer"
+                    href="/dashboard/profile"
                     onClick={() => setOpen(false)}
                     className="flex items-center gap-2 px-2 py-2 rounded-md hover:bg-gray-100 text-gray-700 text-sm"
                   >

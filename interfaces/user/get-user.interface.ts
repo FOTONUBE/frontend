@@ -5,6 +5,7 @@ export interface GetUserResponse {
   name: null;
   image: null;
   phone: null;
+  hasCompletedProfile: boolean;
   accessibleAlbums: AccessibleAlbum[];
   orders: any[];
   paymentAccounts: PaymentAccount[];

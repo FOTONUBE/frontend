@@ -123,12 +123,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       return false;
     }
 
-    get().logout();
+    /*   get().logout();
     toast.success(
       "Usuario actualizado correctamente. Por favor, vuelve a iniciar sesión ✅"
     );
 
-    window.location.href = "/login";
+    window.location.href = "/login"; */
 
     return true;
   },

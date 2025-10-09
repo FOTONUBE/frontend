@@ -42,7 +42,7 @@ export const CartSummary = () => {
     clearCart();
 
     // 🔹 Redirigir al checkout
-    router.push(`/dashboard/pedidos/${newOrder.id}`);
+    router.push(`/dashboard/comprador/pedidos/${newOrder.id}`);
   };
 
   return (
