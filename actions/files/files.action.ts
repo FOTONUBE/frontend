@@ -10,15 +10,16 @@ export const uploadFile = async (file: File): Promise<UploadFileResult> => {
     const formData = new FormData();
     formData.append("file", file);
 
-    const { data } = await claraApi.post("/files/upload", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-
+    const { data } = await claraApi.post("/files/upload", formData);
     return { success: true, url: data.url };
   } catch (error: any) {
+    console.error("Error en uploadFile:", error?.response?.data || error);
     return {
       success: false,
-      error: error?.response?.data?.message || "Error al subir el archivo",
+      error:
+        error?.response?.data?.message ||
+        error?.message ||
+        "Error al subir el archivo",
     };
   }
 };

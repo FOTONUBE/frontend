@@ -1,26 +1,71 @@
 "use client";
 
+import { motion } from "framer-motion";
+import { CreditCard, Download, Image, ShoppingCart, Users } from "lucide-react";
+
+const steps = [
+  {
+    title: "Accede al álbum",
+    description:
+      "Usa tu usuario y contraseña proporcionados para ingresar al álbum.",
+    icon: <Users className="w-10 h-10 text-cyan-600" />,
+    color: "bg-cyan-50",
+  },
+  {
+    title: "Explora y selecciona fotos",
+    description:
+      "Navega por las fotos disponibles y elige las que quieras comprar.",
+    icon: <Image className="w-10 h-10 text-cyan-600" />,
+    color: "bg-cyan-50",
+  },
+  {
+    title: "Elige formato",
+    description:
+      "Selecciona entre digital, impreso o packs especiales (escolar/deportivo).",
+    icon: <ShoppingCart className="w-10 h-10 text-cyan-600" />,
+    color: "bg-cyan-50",
+  },
+  {
+    title: "Finaliza tu compra",
+    description:
+      "Agrega al carrito y completa la compra con tu medio de pago preferido.",
+    icon: <CreditCard className="w-10 h-10 text-cyan-600" />,
+    color: "bg-cyan-50",
+  },
+  {
+    title: "Recibe tus fotos",
+    description: "Recíbelas por correo.",
+    icon: <Download className="w-10 h-10 text-cyan-600" />,
+    color: "bg-cyan-50",
+  },
+];
+
 export default function HowToBuyPage() {
   return (
-    <div className="p-6 max-w-3xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4">
+    <div className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+      <h1 className="text-3xl font-extrabold text-gray-900 text-center mb-12">
         Cómo Comprar Fotos en FotoNube
-      </h2>
-      <ol className="list-decimal pl-6 space-y-3">
-        <li>Accede al álbum usando el usuario y contraseña proporcionados.</li>
-        <li>
-          Explora las fotos disponibles y selecciona las que quieras comprar.
-        </li>
-        <li>Elige el formato (digital, impreso o pack escolar/deportivo).</li>
-        <li>
-          Agrega las fotos al carrito y finaliza la compra usando el medio de
-          pago deseado.
-        </li>
-        <li>
-          Recibirás tus fotos por correo o podrás descargarlas desde la
-          plataforma.
-        </li>
-      </ol>
+      </h1>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {steps.map((step, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.1, duration: 0.5 }}
+            className={`rounded-2xl p-6 ${step.color} shadow hover:shadow-lg transition`}
+          >
+            <div className="flex items-center justify-center mb-4">
+              {step.icon}
+            </div>
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+              {step.title}
+            </h2>
+            <p className="text-gray-700 text-sm">{step.description}</p>
+          </motion.div>
+        ))}
+      </div>
     </div>
   );
 }

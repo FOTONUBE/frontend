@@ -1,24 +1,21 @@
 "use client";
 
-import { OrderStatusBadges } from "@/components/dashboard/General/OrderStatusBadge";
-import { Card, CardContent } from "@/components/ui/card";
-import { useAlbumStore } from "@/store/useAlbumStore";
+import { useEffect } from "react";
 import { usePhotographerStore } from "@/store/usePhotographerStore";
+import { Card, CardContent } from "@/components/ui/card";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { useEffect } from "react";
+import { ApexOptions } from "apexcharts";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 export default function PhotographerDashboard() {
   const { loading, error, orders, loadPhotographerOrders } =
     usePhotographerStore();
-  const { albums, getAlbums } = useAlbumStore();
 
   useEffect(() => {
     if (orders.length === 0) loadPhotographerOrders();
-    if (albums.length === 0) getAlbums();
-  }, [orders.length, albums.length, loadPhotographerOrders, getAlbums]);
+  }, [orders.length, loadPhotographerOrders]);
 
   if (loading)
     return (
@@ -26,70 +23,57 @@ export default function PhotographerDashboard() {
     );
   if (error) return <p className="p-6 text-center text-red-600">{error}</p>;
 
+  // 🔹 Métricas rápidas
   const totalOrders = orders?.length ?? 0;
-  const totalAlbums = albums?.length ?? 0;
+  const totalAlbums =
+    orders?.reduce((acc, o) => (o.album ? acc + 1 : acc), 0) ?? 0; // si querés contar álbumes
   const totalSales =
     orders?.reduce((acc, o) => acc + Number(o.total ?? 0), 0) ?? 0;
 
-  const pendingOrders =
-    orders?.filter((o) => o.deliveryStatus === "pending").length ?? 0;
-  const inProgressOrders =
-    orders?.filter((o) => o.deliveryStatus === "in_progress").length ?? 0;
-  const deliveredOrders =
-    orders?.filter((o) => o.deliveryStatus === "delivered").length ?? 0;
+  const pendingOrders = orders.filter(
+    (o) => o.deliveryStatus === "pending"
+  ).length;
+  const inProgressOrders = orders.filter(
+    (o) => o.deliveryStatus === "in_progress"
+  ).length;
+  const deliveredOrders = orders.filter(
+    (o) => o.deliveryStatus === "delivered"
+  ).length;
 
   const totalSalesFormatted = new Intl.NumberFormat("es-AR", {
     style: "currency",
     currency: "ARS",
   }).format(totalSales);
 
-  // Datos gráficos
-  const ordersByStatusOptions = {
-    chart: {
-      id: "orders-status",
-      toolbar: { show: false },
-      animations: { enabled: true },
-    },
-    plotOptions: {
-      bar: { distributed: true, borderRadius: 6, horizontal: false },
-    },
-    dataLabels: { enabled: false },
-    xaxis: { categories: ["Pendientes", "En Progreso", "Entregados"] },
-    colors: ["#FACC15", "#22D3EE", "#22C55E"],
-  };
+  // 🔹 Últimos pedidos (6) ordenados por fecha descendente
+  const lastOrders = [...orders]
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    )
+    .slice(0, 6);
+
+  // 🔹 Gráfico de torta pedidos por estado
   const ordersByStatusSeries = [
-    {
-      name: "Pedidos",
-      data: [pendingOrders, inProgressOrders, deliveredOrders],
-    },
+    pendingOrders,
+    inProgressOrders,
+    deliveredOrders,
   ];
 
-  const albumSalesOptions = {
-    chart: {
-      id: "album-sales",
-      toolbar: { show: false },
-      animations: { enabled: true },
-    },
-    plotOptions: { bar: { borderRadius: 6 } },
-    dataLabels: { enabled: false },
-    xaxis: { categories: albums.map((a) => a.name) },
-    colors: ["#3B82F6"],
+  const ordersByStatusOptions: ApexOptions = {
+    chart: { type: "donut", toolbar: { show: false } },
+    labels: ["Pendiente", "En Progreso", "Entregado"],
+    colors: ["#FACC15", "#22D3EE", "#22C55E"],
+    legend: { position: "bottom" },
+    dataLabels: { enabled: true },
   };
-  const albumSalesSeries = [
-    {
-      name: "Pedidos",
-      data: albums.map(
-        (a) => orders.filter((o) => o.album?.id === a.id).length
-      ),
-    },
-  ];
 
   return (
     <div className="px-6 space-y-8">
-      <h1 className="text-3xl font-bold">Panel principal</h1>
+      <h1 className="text-3xl font-bold text-cyan-600">Panel principal</h1>
 
-      {/* Métricas rápidas */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* 🔹 Métricas rápidas */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
         <Card className="text-center p-4 hover:shadow-xl transition-shadow duration-300">
           <CardContent>
             <p className="text-sm text-gray-500">Álbumes</p>
@@ -98,8 +82,30 @@ export default function PhotographerDashboard() {
         </Card>
         <Card className="text-center p-4 hover:shadow-xl transition-shadow duration-300">
           <CardContent>
-            <p className="text-sm text-gray-500">Pedidos</p>
+            <p className="text-sm text-gray-500">Total Pedidos</p>
             <p className="text-xl font-bold">{totalOrders}</p>
+          </CardContent>
+        </Card>
+        <Card className="text-center p-4 hover:shadow-xl transition-shadow duration-300">
+          <CardContent>
+            <p className="text-sm text-gray-500">Pendientes</p>
+            <p className="text-xl font-bold text-yellow-500">{pendingOrders}</p>
+          </CardContent>
+        </Card>
+        <Card className="text-center p-4 hover:shadow-xl transition-shadow duration-300">
+          <CardContent>
+            <p className="text-sm text-gray-500">En Progreso</p>
+            <p className="text-xl font-bold text-blue-500">
+              {inProgressOrders}
+            </p>
+          </CardContent>
+        </Card>
+        <Card className="text-center p-4 hover:shadow-xl transition-shadow duration-300">
+          <CardContent>
+            <p className="text-sm text-gray-500">Entregados</p>
+            <p className="text-xl font-bold text-green-500">
+              {deliveredOrders}
+            </p>
           </CardContent>
         </Card>
         <Card className="text-center p-4 hover:shadow-xl transition-shadow duration-300">
@@ -110,93 +116,79 @@ export default function PhotographerDashboard() {
         </Card>
       </div>
 
-      {/* Gráficas */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card className="p-4 hover:shadow-xl transition-shadow duration-300">
-          <Card className="p-4 hover:shadow-xl transition-shadow duration-300">
-            <CardContent>
-              <h2 className="text-lg font-semibold mb-2">Pedidos por estado</h2>
-              <Chart
-                options={{
-                  chart: { type: "donut" },
-                  labels: ["Pendientes", "En Progreso", "Entregados"],
-                  colors: ["#FACC15", "#22D3EE", "#22C55E"],
-                  legend: { position: "bottom" },
-                  dataLabels: { enabled: true },
-                }}
-                series={[pendingOrders, inProgressOrders, deliveredOrders]}
-                type="donut"
-                height={300}
-              />
-            </CardContent>
-          </Card>
-        </Card>
-
+      {/* 🔹 Gráfico de torta */}
+      <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
         <Card className="p-4 hover:shadow-xl transition-shadow duration-300">
           <CardContent>
-            <h2 className="text-lg font-semibold mb-2">Pedidos por álbum</h2>
+            <h2 className="text-lg font-semibold mb-2">Pedidos por estado</h2>
             <Chart
-              options={{
-                chart: { type: "donut" },
-                labels: albums.map((a) => a.name),
-                colors: ["#3B82F6", "#22D3EE", "#F472B6", "#F59E0B", "#10B981"],
-                legend: { position: "bottom" },
-                dataLabels: { enabled: true },
-                tooltip: {
-                  y: { formatter: (val: number) => `${val} pedidos` },
-                },
-              }}
-              series={albums.map(
-                (a) => orders.filter((o) => o.album?.id === a.id).length
-              )}
+              options={ordersByStatusOptions}
+              series={ordersByStatusSeries}
               type="donut"
-              height={320}
+              height={350}
             />
           </CardContent>
         </Card>
       </div>
 
-      {/* Últimos Álbumes */}
+      {/* 🔹 Últimos pedidos */}
       <div>
-        <h2 className="text-lg font-semibold mb-4">Últimos Álbumes</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {albums.slice(-4).map((album) => (
-            <Link key={album.id} href={`/dashboard/albums/${album.id}`}>
-              <Card className="hover:shadow-2xl transition-all cursor-pointer border rounded overflow-hidden">
-                <CardContent>
-                  <p className="font-semibold truncate">{album.name}</p>
-                  <p className="text-sm text-gray-500">
-                    Fotos: {album.photos.length}
-                  </p>
-                  <p className="text-sm text-gray-500">
-                    Pedidos:{" "}
-                    {orders.filter((o) => o.album?.id === album.id).length}
-                  </p>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* Últimos Pedidos */}
-      {/*   <div>
         <h2 className="text-lg font-semibold mb-4">Últimos Pedidos</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {orders.slice(-6).map((order) => (
-            <OrderStatusBadges
-              key={order.id}
-              id={order.id}
-              albumTitle={order.album?.title ?? "Sin título"}
-              deliveryStatus={order.deliveryStatus}
-              paymentStatus={order.status}
-              total={order.total}
-              itemsCount={order.items.length}
-              createdAt={order.createdAt}
-            />
-          ))}
+          {lastOrders.map((order) => {
+            const statusLabel =
+              order.deliveryStatus === "pending"
+                ? "Pendiente"
+                : order.deliveryStatus === "in_progress"
+                ? "En Progreso"
+                : "Entregado";
+
+            return (
+              <Link
+                key={order.id}
+                href={`/dashboard/fotografo/orders/${order.id}`}
+              >
+                <Card className="hover:shadow-2xl transition-all cursor-pointer border rounded overflow-hidden">
+                  <CardContent>
+                    <div className="flex items-center gap-3">
+                      {order.items[0]?.photoUrl ? (
+                        <img
+                          src={order.items[0].photoUrl}
+                          alt="Foto del pedido"
+                          className="w-16 h-16 object-cover rounded"
+                        />
+                      ) : (
+                        <div className="w-16 h-16 bg-gray-200 rounded flex items-center justify-center text-gray-400 text-xs">
+                          Sin foto
+                        </div>
+                      )}
+                      <div className="flex-1">
+                        <p className="font-semibold truncate">
+                          {order.album?.title ?? "Sin título"}
+                        </p>
+                        <p className="text-sm text-gray-500 truncate">
+                          Total: ${order.total}
+                        </p>
+                        <span
+                          className={`inline-block mt-1 px-2 py-0.5 rounded-full text-xs font-semibold ${
+                            order.deliveryStatus === "pending"
+                              ? "bg-yellow-100 text-yellow-700"
+                              : order.deliveryStatus === "in_progress"
+                              ? "bg-blue-100 text-blue-700"
+                              : "bg-green-100 text-green-700"
+                          }`}
+                        >
+                          {statusLabel}
+                        </span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            );
+          })}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 }

@@ -11,6 +11,7 @@ export default function PaymentFailurePage() {
           title="¡Pago fallido!"
           description="Hubo un problema procesando tu compra. Inténtalo de nuevo."
           icon={<XCircle className="text-red-500 w-16 h-16 mx-auto mb-4" />}
+          statusOverride="failed"
         />
       </Suspense>
     </div>

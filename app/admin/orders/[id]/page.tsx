@@ -81,6 +81,8 @@ export default function AdminOrderDetailPage() {
     },
   ];
 
+  console.log(currentOrder.items);
+
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
       <h1 className="text-2xl font-bold text-cyan-600 mb-4">
@@ -115,11 +117,7 @@ export default function AdminOrderDetailPage() {
             transition={{ delay: idx * 0.05 }}
             className="bg-white border rounded-lg overflow-hidden shadow hover:shadow-md transition"
           >
-            <img
-              src={item.photo.url}
-              alt={`Foto ${item.photo.id}`}
-              className="w-full h-36 object-cover"
-            />
+            <img src={item.photoThumbnailUrl} alt="Foto" />
             <div className="p-3 space-y-1">
               <div className="flex justify-between text-sm">
                 <span className="font-medium">Cantidad:</span>

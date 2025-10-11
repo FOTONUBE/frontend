@@ -46,7 +46,7 @@ export const CartSummary = () => {
   };
 
   return (
-    <div className="p-6 border rounded-lg shadow-md bg-white w-full max-w-sm ml-auto">
+    <div className="p-6 border rounded-lg shadow-md bg-white w-full lg:max-w-sm lg:ml-auto">
       <h2 className="text-lg font-semibold mb-4">Resumen</h2>
       <p className="flex justify-between mb-2">
         <span className="text-sm">Subtotal:</span>

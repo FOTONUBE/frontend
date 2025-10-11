@@ -118,7 +118,7 @@ export default function AdminOrdersPage() {
                     "Comprador",
                     "Fotógrafo",
                     "Total",
-                    "Estado",
+                    "Pago",
                     "Entrega",
                     "Fecha",
                   ].map((h) => (
@@ -132,10 +132,10 @@ export default function AdminOrdersPage() {
                 {filteredOrders.map((o) => (
                   <tr
                     key={o.id}
-                    className="border-t hover:bg-gray-50 cursor-pointer"
+                    className="border-t hover:bg-gray-50 cursor-pointer text-sm"
                     onClick={() => router.push(`/admin/orders/${o.id}`)}
                   >
-                    <td className="px-4 py-2">{o.id}</td>
+                    <td className="px-4 py-2">{o.id.slice(0, 8)}...</td>
                     <td className="px-4 py-2">{o.buyer.email}</td>
                     <td className="px-4 py-2">
                       {o.album.photographer.name || o.album.photographer.email}

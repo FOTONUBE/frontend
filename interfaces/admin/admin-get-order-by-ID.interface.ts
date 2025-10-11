@@ -54,9 +54,12 @@ export interface Price {
 
 export interface Item {
   id: string;
-  photo: Photo;
-  size: string;
+  originalPhotoId: string;
+  photoUrl: string;
+  photoThumbnailUrl: string;
+  photoWebUrl: string;
   quantity: number;
+  size: string;
   unitPrice: string;
   subtotal: string;
 }
