@@ -11,7 +11,7 @@ export default function AdminLeadsPage() {
 
   useEffect(() => {
     if (leads.length === 0) fetchLeads();
-  }, [leads]);
+  }, []);
 
   // Paginado
   const totalPages = Math.max(Math.ceil(leads.length / leadsPerPage), 1);
