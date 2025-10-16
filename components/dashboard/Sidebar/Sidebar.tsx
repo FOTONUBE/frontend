@@ -120,7 +120,7 @@ export default function DashboardSidebar({ showLinks = true }) {
           </motion.div>
 
           <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl shadow-md text-center text-white text-sm font-semibold">
-            FotoNube
+            FOTONUBE
           </div>
         </div>
       </aside>

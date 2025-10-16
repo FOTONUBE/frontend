@@ -3,6 +3,7 @@
 import { useBuyerStore } from "@/store/useBuyerStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function AlbumAccessPage() {
   const [userEvent, setUserEvent] = useState("");
@@ -12,10 +13,10 @@ export default function AlbumAccessPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await fetchAlbumAccess(userEvent, passwordEvent);
+    const success = await fetchAlbumAccess(userEvent, passwordEvent);
 
-    if (!loading) {
-      router.push(`/dashboard/ver-album`);
+    if (success) {
+      setTimeout(() => router.push(`/dashboard/comprador/ver-album`), 800);
     }
   };
 

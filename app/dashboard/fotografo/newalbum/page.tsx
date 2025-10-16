@@ -180,7 +180,7 @@ export default function NewAlbumScreen() {
           <h2 className="text-xl font-semibold text-gray-800 mb-4">
             Precios de copias impresas
           </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {fields.map((field, index) => (
               <div
                 key={field.id}
@@ -206,11 +206,9 @@ export default function NewAlbumScreen() {
                 )}
               </div>
             ))}
-          </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 mt-6">
-            <div>
-              <label className="font-semibold text-gray-700 mb-2 block">
+            <div className="flex flex-col items-center bg-gray-50 p-4 rounded-xl border border-gray-200">
+              <label className="font-medium text-gray-700 mb-2">
                 Foto digital
               </label>
               <input
@@ -221,7 +219,7 @@ export default function NewAlbumScreen() {
                   min: { value: 1, message: "Debe ser 1 o mayor" },
                 })}
                 placeholder="Ej: 500"
-                className="w-full p-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-cyan-500 bg-gray-50"
+                className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500"
               />
               {errors.priceDigital && (
                 <p className="text-red-600 text-sm mt-1">
@@ -229,6 +227,9 @@ export default function NewAlbumScreen() {
                 </p>
               )}
             </div>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 mt-6">
             {/*             <div>
               <label className="font-semibold text-gray-700 mb-2 block">
                 Carpeta escolar / deportiva
@@ -333,7 +334,7 @@ export default function NewAlbumScreen() {
         {/* Bloque: Carpeta activa */}
         <section className="bg-white p-6 rounded-2xl shadow-md border border-gray-100 space-y-4">
           <label className="font-semibold text-gray-700 mb-2 block">
-            Carpeta activa
+            Album activo
           </label>
           <Controller
             control={control}

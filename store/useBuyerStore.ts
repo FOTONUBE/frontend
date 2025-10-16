@@ -27,7 +27,11 @@ interface BuyerState {
   currentOrder?: Order | null; // orden individual seleccionada
 
   // álbum
-  fetchAlbumAccess: (userEvent: string, passwordEvent: string) => Promise<void>;
+  fetchAlbumAccess: (
+    userEvent: string,
+    passwordEvent: string
+  ) => Promise<boolean>;
+
   fetchAlbumById: (id: string) => Promise<void>;
 
   // órdenes
@@ -61,7 +65,7 @@ export const useBuyerStore = create<BuyerState>((set, get) => ({
     if (!result.success) {
       set({ loading: false, error: result.error });
       toast.error(result.error || "No se pudo acceder al álbum ❌");
-      return;
+      return false; // 👈 en lugar de return;
     }
 
     try {
@@ -74,6 +78,7 @@ export const useBuyerStore = create<BuyerState>((set, get) => ({
     }
 
     set({ loading: false });
+    return true;
   },
 
   fetchAlbumById: async (id) => {
