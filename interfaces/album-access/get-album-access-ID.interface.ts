@@ -4,7 +4,7 @@ export interface AlbumAccessById {
   eventDate: Date;
   prices: Price[];
   priceDigital: number;
-  priceSchoolSports: number;
+  priceSchoolSports?: number;
   photos: Photo[];
   photographer: string;
 }

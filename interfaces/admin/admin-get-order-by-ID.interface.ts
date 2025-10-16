@@ -17,7 +17,7 @@ export interface Album {
   passwordEventHash: string;
   prices: Price[];
   priceDigital: number;
-  priceSchoolSports: number;
+  priceSchoolSports?: number;
   eventDate: Date;
   clientEmail: string;
   clientPhoneNumber: string;

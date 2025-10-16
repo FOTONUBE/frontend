@@ -5,7 +5,7 @@ export interface AlbumIDResponse {
   passwordEventHash: string;
   prices: Price[];
   priceDigital: number;
-  priceSchoolSports: number;
+  priceSchoolSports?: number;
   eventDate: string; // Backend devuelve string ISO
   clientEmail: string;
   clientPhoneNumber: string;

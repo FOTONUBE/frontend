@@ -23,7 +23,7 @@ export interface Album {
   title: string;
   prices: AlbumPrice[];
   priceDigital: number;
-  priceSchoolSports: number;
+  priceSchoolSports?: number;
   eventDate: string;
   description: string;
 }

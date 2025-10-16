@@ -9,7 +9,7 @@ export interface AlbumData {
   passwordEvent: string;
   prices: AlbumPrice[]; // reemplaza priceS, priceM, priceL
   priceDigital: number;
-  priceSchoolSports: number;
+  priceSchoolSports?: number;
   eventDate: string;
   clientEmail: string;
   clientPhoneNumber: string;

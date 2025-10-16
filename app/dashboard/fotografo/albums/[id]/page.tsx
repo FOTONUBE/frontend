@@ -229,13 +229,13 @@ export default function AlbumDetailPage() {
             onChange={handleChange}
             type="number"
           />
-          <FormInput
+          {/*      <FormInput
             label="Precio School Sports"
             name="priceSchoolSports"
             value={form.priceSchoolSports}
             onChange={handleChange}
             type="number"
-          />
+          /> */}
         </div>
 
         <div className="flex items-center space-x-10 mt-4">

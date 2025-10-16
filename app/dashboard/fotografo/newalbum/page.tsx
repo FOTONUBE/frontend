@@ -229,7 +229,7 @@ export default function NewAlbumScreen() {
                 </p>
               )}
             </div>
-            <div>
+            {/*             <div>
               <label className="font-semibold text-gray-700 mb-2 block">
                 Carpeta escolar / deportiva
               </label>
@@ -248,7 +248,7 @@ export default function NewAlbumScreen() {
                   {errors.priceSchoolSports.message}
                 </p>
               )}
-            </div>
+            </div> */}
           </div>
         </section>
 

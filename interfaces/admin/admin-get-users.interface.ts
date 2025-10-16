@@ -20,7 +20,7 @@ export interface Album {
   passwordEventHash: string;
   prices: Price[];
   priceDigital: number;
-  priceSchoolSports: number;
+  priceSchoolSports?: number;
   eventDate: string;
   clientEmail: string;
   clientPhoneNumber: string;
