@@ -29,8 +29,8 @@ export default function Header() {
     { text: "Contacto", href: "/#contacto" },
     ...(!isLoggedIn
       ? [
-          // { text: "Registrarse", href: "/register" },
-          // { text: "Iniciar Sesión", href: "/login" },
+          { text: "Registrarse", href: "/register" },
+          { text: "Iniciar Sesión", href: "/login" },
         ]
       : []),
     ...(isLoggedIn
