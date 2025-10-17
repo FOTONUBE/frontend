@@ -24,7 +24,7 @@ const planFeatures: Record<
       color: "text-gray-400",
     },
     {
-      text: "Comisión por transacción 14.99%.",
+      text: "Comisión por transacción 19.99%.",
       icon: Circle,
       color: "text-gray-400",
     },
@@ -47,7 +47,7 @@ const planFeatures: Record<
       color: "text-cyan-600",
     },
     {
-      text: "Comisión reducida al 4.99% por venta.",
+      text: "Comisión reducida al 9.99% por venta.",
       icon: Check,
       color: "text-cyan-600",
     },
@@ -78,22 +78,12 @@ export default function SubscriptionScreen() {
   if (!activeSubscription) return <p>Cargando suscripción...</p>;
 
   const isUserPro = activeSubscription.plan.name === "Pro";
-
-  const allProPlans = plans.filter((p) => p.name === "Pro");
-  const availableProPlans = allProPlans.filter(
-    (p) => p.durationMonths > activeSubscription.plan.durationMonths
-  );
-  const sortedProPlans = availableProPlans.sort((a, b) => b.price - a.price);
-
-  // Features del plan actual
   const currentFeatures = planFeatures[activeSubscription.plan.name] || [];
-
-  // Beneficios Pro solo para la sección intermedia
   const proBenefits = planFeatures["Pro"];
+  const DOLLAR_RATE = 1465;
 
   return (
     <div className="flex flex-col items-center px-4 min-h-screen">
-      {/* Encabezado */}
       <h1 className="text-4xl font-extrabold text-gray-900 mb-4 text-center">
         Suscríbete a FOTONUBE Pro según tus necesidades ☁️
       </h1>
@@ -101,7 +91,7 @@ export default function SubscriptionScreen() {
         Planes flexibles diseñados para potenciar tu negocio fotográfico.
       </p>
 
-      {/* Suscripción Actual */}
+      {/* Plan actual */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -124,24 +114,12 @@ export default function SubscriptionScreen() {
             {activeSubscription.plan.name}
           </h2>
 
-          {/* Estado */}
-          {activeSubscription.endDate ? (
-            <p className="text-sm font-medium text-indigo-700 mt-1">
-              Suscripción activa
-            </p>
-          ) : (
-            <p className="text-sm font-medium text-gray-500 mt-1">
-              Plan activo indefinidamente
-            </p>
-          )}
-
           <p className="text-gray-500 mt-2">
             {isUserPro
               ? "Disfrutas de beneficios Pro y tu cuenta está activa."
               : "Estás en la versión gratuita. ¡Es hora de subir de nivel!"}
           </p>
 
-          {/* Features del plan actual */}
           <div className="mt-4 grid grid-cols-2 gap-y-3 gap-x-6 text-gray-700 text-sm">
             {currentFeatures.map((feature, index) => (
               <div key={index} className="flex items-center space-x-2">
@@ -172,112 +150,111 @@ export default function SubscriptionScreen() {
         </div>
       </motion.div>
 
-      {/* Beneficios Pro */}
+      {/* Solo mostrar planes si NO es Pro */}
       {!isUserPro && (
-        <div className="w-full max-w-4xl mb-16 text-center">
-          <h3 className="text-3xl font-bold text-gray-900 mb-6">
-            ¡Es hora de suscribirte a{" "}
-            <span className="text-indigo-600">FotoNube Pro</span>!
-          </h3>
-          <p className="text-lg text-gray-600 mb-8">
-            Escoge el plan que mejor se adapte a tus necesidades y desbloquea
-            todo el potencial de tu negocio fotográfico 🚀
-          </p>
+        <>
+          <div className="w-full max-w-4xl mb-16 text-center">
+            <h3 className="text-3xl font-bold text-gray-900 mb-6">
+              ¡Es hora de suscribirte a{" "}
+              <span className="text-indigo-600">FotoNube Pro</span>!
+            </h3>
+            <p className="text-lg text-gray-600 mb-8">
+              Escoge el plan que mejor se adapte a tus necesidades y desbloquea
+              todo el potencial de tu negocio fotográfico 🚀
+            </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
-            {proBenefits.map((benefit, i) => (
-              <div key={i} className="flex items-start space-x-3">
-                <Check className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
-                <p className="text-gray-700 text-base">{benefit.text}</p>
-              </div>
-            ))}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
+              {proBenefits.map((benefit, i) => (
+                <div key={i} className="flex items-start space-x-3">
+                  <Check className="w-6 h-6 text-green-500 mt-1 flex-shrink-0" />
+                  <p className="text-gray-700 text-base">{benefit.text}</p>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
 
-      {/* Planes Pro */}
-      {sortedProPlans.length > 0 && (
-        <div className="w-full max-w-5xl">
-          <h3 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Mejora tu Plan Pro
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sortedProPlans.map((plan, index) => {
-              const isRecommended = index === 0;
+          {/* Planes Pro */}
+          <div className="w-full max-w-6xl">
+            <h3 className="text-4xl font-extrabold text-gray-900 mb-2 text-center">
+              PROMO LANZAMIENTO
+            </h3>
+            <p className="text-cyan-600 font-semibold mb-10 text-center">
+              por tiempo limitado
+            </p>
 
-              return (
-                <motion.div
-                  key={plan.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4 + index * 0.1 }}
-                  className={`flex flex-col justify-between p-6 rounded-xl shadow-lg transition-all duration-300 border relative
-                    ${
-                      isRecommended
-                        ? "bg-white border-cyan-600 ring-4 ring-cyan-100 scale-[1.05] hover:scale-[1.07] shadow-xl"
-                        : "bg-white border-gray-100 scale-[0.95] hover:scale-[0.97] shadow-md"
-                    }`}
-                >
-                  {isRecommended && (
-                    <motion.span
-                      initial={{ scale: 0.8, rotate: -10, opacity: 0 }}
-                      animate={{ scale: 1, rotate: 0, opacity: 1 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20,
-                      }}
-                      className="absolute top-0 right-0 bg-cyan-600 text-white text-xs font-bold py-1 px-4 rounded-bl-lg rounded-tr-xl uppercase tracking-wider shadow-lg"
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {plans
+                .filter((p) => p.name === "Pro")
+                .sort((a, b) => a.durationMonths - b.durationMonths)
+                .map((plan, index) => {
+                  const usdLaunch = Math.round(plan.price / DOLLAR_RATE);
+                  const usdRegular = Math.round(usdLaunch * 1.35);
+
+                  return (
+                    <motion.div
+                      key={plan.id}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4 + index * 0.1 }}
+                      className="flex flex-col items-center justify-between border rounded-xl shadow-lg bg-white p-6 relative overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all"
                     >
-                      Mejor Valor
-                    </motion.span>
-                  )}
+                      <h3 className="text-cyan-700 font-extrabold text-xl mb-1">
+                        FOTONUBE Pro
+                      </h3>
+                      <p className="font-bold text-gray-800 mb-4">
+                        {plan.durationMonths}{" "}
+                        {plan.durationMonths > 1 ? "MESES" : "MES"}
+                      </p>
 
-                  <div className="h-full flex flex-col justify-between">
-                    <h4 className="text-lg font-bold text-gray-900 mb-2">
-                      FOTONUBE Pro ({plan.durationMonths} meses)
-                    </h4>
-                    <p className="text-gray-500 mb-4">{plan.description}</p>
-                    <p className="text-4xl font-extrabold text-blue-600 mb-2 bg-gradient-to-r from-blue-500 to-blue-400 bg-clip-text text-transparent">
-                      ${plan.price}
-                    </p>
-                    <p className="text-sm font-medium text-gray-500 mb-4">
-                      Pago único
-                      {/*  por {plan.durationMonths}{" "}
-                      {plan.durationMonths > 1 ? "meses" : "mes"} */}
-                    </p>
-                  </div>
+                      <p className="text-gray-500 mb-1 text-sm font-semibold">
+                        Precio REGULAR
+                      </p>
+                      <p className="text-2xl text-gray-400 line-through mb-3">
+                        U$S {usdRegular}
+                      </p>
 
-                  <button
-                    onClick={async () => {
-                      const order = await createOrder(plan.id);
-                      if (order) await payOrder(order.id);
-                    }}
-                    className={`mt-6 py-3 w-full rounded-lg font-bold transition-colors ${
-                      isRecommended
-                        ? "bg-cyan-600 text-white hover:bg-cyan-700 shadow-md shadow-cyan-200"
-                        : "bg-indigo-600 text-white hover:bg-indigo-700"
-                    }`}
-                  >
-                    Mejorar a este Plan
-                  </button>
-                </motion.div>
-              );
-            })}
+                      <div className="bg-lime-400 font-bold p-3 rounded-md text-gray-900 w-full text-center">
+                        <p className="text-sm">
+                          Precio LANZAMIENTO <br />
+                          <span className="text-gray-800">
+                            Hasta el <b>31/10/2025</b>
+                          </span>
+                        </p>
+                        <p className="text-3xl mt-1">U$S {usdLaunch}</p>
+                      </div>
+
+                      <p className="text-xs text-gray-500 mt-2 text-center">
+                        * El valor será cobrado en pesos argentinos al tipo de
+                        cambio oficial.
+                      </p>
+
+                      <button
+                        onClick={async () => {
+                          const order = await createOrder(plan.id);
+                          if (order) await payOrder(order.id);
+                        }}
+                        className="mt-6 bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-lg shadow-md w-full"
+                      >
+                        Suscribirme
+                      </button>
+                    </motion.div>
+                  );
+                })}
+            </div>
+
+            <div className="mt-10 flex justify-center items-center text-gray-500 text-xs space-x-3">
+              <span>Pago 100% seguro con</span>
+              <Image
+                src="/mercadopagoIcon.webp"
+                alt="Mercado Pago"
+                width={32}
+                height={32}
+                className="rounded-full"
+              />
+              <span>y las principales tarjetas de crédito.</span>
+            </div>
           </div>
-
-          <div className="mt-10 flex justify-center items-center text-gray-500 text-xs space-x-3">
-            <span>Pago 100% seguro con</span>
-            <Image
-              src="/mercadopagoIcon.webp"
-              alt="Mercado Pago"
-              width={32}
-              height={32}
-              className="rounded-full"
-            />
-            <span>y las principales tarjetas de crédito.</span>
-          </div>
-        </div>
+        </>
       )}
     </div>
   );

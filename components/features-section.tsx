@@ -21,7 +21,7 @@ export default function FeaturesSection() {
       icon: School,
       title: "Fotos escolares",
       description:
-        "Con la función “Carpetas escolares/deportivas” deja atrás el viejo sistema de pago en efectivo por sobre, tus clientes podrán elegir y pagar en línea sus pedidos de fotos.",
+        "Sube tus álbumes de fotos escolares a FOTONUBE y deja atrás el viejo sistema de pago en efectivo por sobre, ahora tu clientes podrán elegir y pagar en línea sus pedidos de fotos.",
     },
   ];
 

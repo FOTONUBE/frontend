@@ -49,16 +49,16 @@ export default function DashboardHeader() {
         {/* Logo */}
         <Link href="/" className="flex items-center space-x-2 cursor-pointer">
           <img
-            src="/logoTop.png"
+            src="/logo-prueba.png"
             alt="Logo Fotonube"
-            className="w-9 h-8 rounded-full"
+            className="w-full h-12 rounded-full"
           />
-          <span className="text-xl font-bold text-gray-900">FOTONUBE</span>
+          {/* <span className="text-xl font-bold text-gray-900">FOTONUBE</span> */}
         </Link>
 
         {/* Perfil + Logout */}
         <div className="flex items-center space-x-4">
-          <CartButton />
+          {user.role === "buyer" && <CartButton />}
 
           <Link
             href="/dashboard/profile"

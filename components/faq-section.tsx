@@ -26,7 +26,7 @@ export default function FAQSection() {
     {
       question: "¿FOTONUBE, tiene costo?",
       answer:
-        "FOTONUBE, cuenta con una versión Free que es de uso gratuito, brinda 1GB de recursos en la nube (aproximadamente), y la posibilidad de publicar cómo máximo 1 (uno) álbum de hasta 200 fotos para comercializar. FOTONUBE Free cobra un 14,99% de comisión por transacción. También ofrecemos la versión FOTONUBE Pro, que es de pago y brinda 20GB de recursos en la nube (aproximadamente) y puedes publicar como máximo 10 (diez) álbumes de hasta 400 fotos para comercializar. Recuerda que la versión FOTONUBE Pro cobra un 4,99% de comisión por transacción. ",
+        "FOTONUBE, cuenta con una versión Free que es de uso gratuito, brinda 1GB de recursos en la nube (aproximadamente), y la posibilidad de publicar cómo máximo 1 (uno) álbum de hasta 200 fotos para comercializar. FOTONUBE Free cobra un 19,99% de comisión por transacción. También ofrecemos la versión FOTONUBE Pro, que es de pago y brinda 20GB de recursos en la nube (aproximadamente) y puedes publicar como máximo 10 (diez) álbumes de hasta 400 fotos para comercializar. Recuerda que la versión FOTONUBE Pro cobra un 9,99% de comisión por transacción. ",
     },
     {
       question:

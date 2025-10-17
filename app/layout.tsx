@@ -14,7 +14,7 @@ const rubik = Rubik({
 });
 
 export const metadata: Metadata = {
-  title: "FotoNube",
+  title: "FOTONUBE",
   description: "Hecho con amor por la comunidad de FotoNube",
 };
 

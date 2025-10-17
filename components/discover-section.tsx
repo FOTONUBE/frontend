@@ -28,7 +28,7 @@ export default function DiscoverSection() {
       icon: ImageIcon,
       title: "Fotos escolares/deportivas",
       description:
-        "Con la función “Carpetas escolares/deportivas” dejas atrás el viejo sistema de pago en efectivo por sobre, tus clientes podrán elegir las fotos en línea y pagar sus pedidos desde Mercado Pago.",
+        "Sube tus fotos escolares o de eventos deportivos a FOTONUBE, tus clientes podrán elegir las fotos en línea y pagar sus pedidos desde Mercado Pago.",
     },
     {
       icon: CreditCard,
