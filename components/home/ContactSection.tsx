@@ -41,20 +41,12 @@ export default function ContactSection() {
         >
           {/* Título */}
           <h2 className="text-4xl font-bold mb-6">
-            MASTERCLASS GRATUITA LANZAMIENTO
+            Súmate a la comunidad FOTONUBE
           </h2>
 
           {/* Bajada */}
           <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-            Si quieres conocer más sobre{" "}
-            <span className="font-semibold">FOTONUBE</span>
-            te invitamos a sumarte a una{" "}
-            <span className="font-semibold">MASTERCLASS GRATUITA</span>
-            el próximo <span className="font-semibold">17 de octubre</span> a
-            las 13hs. (GMT-3) ARG.
-            <br />
-            Te vamos a contar qué es FOTONUBE y cómo puedes llevar tu negocio
-            fotográfico al siguiente nivel.
+            Suscríbete a nuestro newsletter informativo y recibe novedades sobre próximas actualizaciones de <span className="font-semibold">FOTONUBE</span>.
           </p>
 
           {/* Formulario */}
@@ -79,7 +71,7 @@ export default function ContactSection() {
               className="bg-cyan-500 hover:bg-cyan-600 text-white px-6 h-12 rounded-md font-semibold"
               disabled={loading}
             >
-              {loading ? "Enviando..." : "INSCRÍBETE AHORA"}
+              {loading ? "Enviando..." : "SUSCRÍBETE AHORA"}
             </Button>
           </form>
         </motion.div>

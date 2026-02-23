@@ -1,31 +1,31 @@
-"use client";
+'use client'
 
-import { useAuthStore } from "@/store/useAuthStore";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useAuthStore } from '@/store/useAuthStore'
+import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 export default function RegisterPage() {
-  const [role, setRole] = useState<"photographer" | "buyer">("photographer");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [role, setRole] = useState<'photographer' | 'buyer'>('photographer')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
-  const router = useRouter();
-  const { register, user } = useAuthStore();
+  const router = useRouter()
+  const { register, user } = useAuthStore()
 
   const onSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const ok = await register(email, password, role);
+    const ok = await register(email, password, role)
     if (!ok) {
-      return;
+      return
     }
 
-    router.push("/dashboard");
-  };
+    router.push('/dashboard')
+  }
 
   useEffect(() => {
-    console.log(user);
-  }, [user]);
+    console.log(user)
+  }, [user])
 
   return (
     <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -50,8 +50,8 @@ export default function RegisterPage() {
                 type="radio"
                 name="role"
                 value="photographer"
-                checked={role === "photographer"}
-                onChange={() => setRole("photographer")}
+                checked={role === 'photographer'}
+                onChange={() => setRole('photographer')}
               />
               SOY FOTÓGRAFO
             </label>
@@ -60,8 +60,8 @@ export default function RegisterPage() {
                 type="radio"
                 name="role"
                 value="buyer"
-                checked={role === "buyer"}
-                onChange={() => setRole("buyer")}
+                checked={role === 'buyer'}
+                onChange={() => setRole('buyer')}
               />
               QUIERO COMPRAR FOTOS
             </label>
@@ -102,5 +102,5 @@ export default function RegisterPage() {
         </form>
       </div>
     </div>
-  );
+  )
 }

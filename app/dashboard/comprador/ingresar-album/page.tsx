@@ -35,7 +35,7 @@ export default function AlbumAccessPage() {
         {/* Formulario */}
         <div className="w-full md:w-1/2 p-8 flex flex-col justify-center h-full">
           <h2 className="text-2xl font-bold mb-2 text-center animate-bounce">
-            Acceder al Álbum
+            Acceder al álbum
           </h2>
           <p className="text-center text-gray-500 mb-6">
             Ingresa las credenciales que te brindó el fotógrafo para ver tus
@@ -47,7 +47,7 @@ export default function AlbumAccessPage() {
             className="space-y-4 flex-1 flex flex-col justify-center"
           >
             <div>
-              <label>Usuario del Evento</label>
+              <label>Usuario del álbum</label>
               <input
                 type="text"
                 className="w-full border rounded px-3 py-2 mt-1 focus:ring-2 focus:ring-cyan-400 focus:outline-none transition"
@@ -58,7 +58,7 @@ export default function AlbumAccessPage() {
             </div>
 
             <div>
-              <label>Contraseña del Evento</label>
+              <label>Contraseña del álbum</label>
               <input
                 type="password"
                 className="w-full border rounded px-3 py-2 mt-1 focus:ring-2 focus:ring-cyan-400 focus:outline-none transition"

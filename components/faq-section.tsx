@@ -16,7 +16,7 @@ export default function FAQSection() {
     {
       question: "¿Cómo puedo usar FOTONUBE?",
       answer:
-        "Para usar FOTONUBE sólo tienes que registrarte como usuario Fotógrafo y usar la plataforma en su versión Free, con un límite de 1GB de recursos en la nube (aproximadamente) y puedes publicar como máximo 1 (uno) álbum de hasta 200 fotos para comercializar. Recuerda que la versión FOTONUBE Free cobra un 14,99% de comisión por transacción.",
+        "Para usar FOTONUBE sólo tienes que registrarte como usuario Fotógrafo y usar la plataforma en su versión Free, con un límite de 1GB de recursos en la nube (aproximadamente) y puedes publicar como máximo 1 (uno) álbum de hasta 200 fotos para comercializar. Recuerda que la versión FOTONUBE Free cobra un 19,99% de comisión por transacción.",
     },
     {
       question: "¿Qué necesito para empezar a usar FOTONUBE?",

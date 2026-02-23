@@ -22,20 +22,12 @@ export default function CTASection() {
         >
           {/* Título */}
           <h2 className="text-4xl font-bold mb-6">
-            Publica y vende tus fotos en línea
+            Súmate a la comunidad FOTONUBE
           </h2>
 
           {/* Bajada */}
           <p className="text-xl mb-8 max-w-3xl mx-auto leading-relaxed">
-            Sumate a la{" "}
-            <span className="font-bold">
-              MASTERCLASS GRATUITA DE LANZAMIENTO
-            </span>{" "}
-            este <span className="font-bold">viernes 17 de octubre</span>
-            <br />
-            <span className="text-sm">
-              13:00 hs. ARG-URU / 14:00 hs. USA / 18:00 hs. ESP
-            </span>
+            Entérate primero sobre las actualizaciones de FOTONUBE. Suscríbete a nuestro newsletter informativo.
           </p>
 
           {/* Botón */}

@@ -1,76 +1,76 @@
-"use client";
+'use client'
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import Link from "next/link";
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export default function HeroCarousel() {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
   const slides = [
     {
       id: 1,
-      title: "¡Con FOTONUBE puedes mostrar y vender tus fotos en línea!",
+      title: '¡FOTONUBE presente en el Congreso FDF Mendoza 2026!',
       subtitle:
-        "No importa si eres un fotógrafo aficionado, si formas parte de un equipo profesional de fotógrafos o tienes un gran estudio de fotografía profesional.",
-      image: "/carousel/hero-slide-1.webp",
-      cta: "DESCUBRE FOTONUBE",
+        'Somos sponsor del Congreso de fotografía más importante de Hispanoamérica. Participa de nuestra charla y haz crecer tu negocio fotográfico.',
+      image: '/carousel/hero-slide-1.webp',
+      cta: 'DESCUBRE FOTONUBE',
     },
     {
       id: 2,
       title:
-        "Con FOTONUBE puedes publicar fácilmente las fotos de los eventos que cubres.",
+        '¿Eres fotógrafo de bodas? ¡FOTONUBE es para vos!',
       subtitle:
-        "Puedes publicar álbumes de fotos de los eventos deportivos, corporativos o sociales que cubras para mostrarlos y venderlos fácilmente on-line.",
-      image: "/carousel/hero-slide-2.webp",
-      cta: "DESCUBRE FOTONUBE",
+        'Publica las fotos de bodas en FOTONUBE, puedes recibir pedidos de clientes y cobrarlos en línea, de forma segura, a través de Mercado Pago.',
+      image: '/carousel/hero-slide-2.webp',
+      cta: 'DESCUBRE FOTONUBE',
     },
     {
       id: 3,
-      title: "Publica en FOTONUBE las fotos escolares.",
+      title: '¿Haces fotos escolares? ¡FOTONUBE es para vos!',
       subtitle:
-        "El sobre para cobrar las fotos del colegio ¡No va más! tus clientes pagan sus pedidos de fotos online, a través de FOTONUBE.",
-      image: "/carousel/hero-slide-3.webp",
-      cta: "DESCUBRE FOTONUBE",
+        'El sobre para cobrar las fotos de colegio ¡No va más! Crea tu tienda en FOTONUBE para que tus clientes elijan y paguen sus fotos a través de Mercado Pago.',
+      image: '/carousel/hero-slide-3.webp',
+      cta: 'DESCUBRE FOTONUBE',
     },
     {
       id: 4,
-      title: "Compra en FOTONUBE las fotos de ese evento inolvidable.",
+      title: '¡FOTONUBE, tu tienda online para publicar, vender y cobrar fotos en línea!',
       subtitle:
-        "Reviví los mejores momentos de la fiesta, compra y paga en línea tus fotos",
-      image: "/carousel/hero-slide-4.webp",
-      cta: "DESCUBRE FOTONUBE",
+        'Puedes publicar álbumes de fotos de bodas, fiestas de 15, fotos escolares ¡y más!, y cobrar los pedidos en línea a través de Mercado Pago.',
+      image: '/carousel/hero-slide-4.webp',
+      cta: 'DESCUBRE FOTONUBE',
     },
-  ];
+  ]
 
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying) return
 
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+      setCurrentSlide((prev) => (prev + 1) % slides.length)
+    }, 5000)
 
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, slides.length]);
+    return () => clearInterval(interval)
+  }, [isAutoPlaying, slides.length])
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-    setIsAutoPlaying(false);
-  };
+    setCurrentSlide((prev) => (prev + 1) % slides.length)
+    setIsAutoPlaying(false)
+  }
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-    setIsAutoPlaying(false);
-  };
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
+    setIsAutoPlaying(false)
+  }
 
   const goToSlide = (index: number) => {
-    setCurrentSlide(index);
-    setIsAutoPlaying(false);
-  };
+    setCurrentSlide(index)
+    setIsAutoPlaying(false)
+  }
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
@@ -85,7 +85,7 @@ export default function HeroCarousel() {
           className="absolute inset-0"
         >
           <Image
-            src={slides[currentSlide].image || "/placeholder.svg"}
+            src={slides[currentSlide].image || '/placeholder.svg'}
             alt={`Slide ${currentSlide + 1}`}
             fill
             className="object-cover"
@@ -126,11 +126,11 @@ export default function HeroCarousel() {
             className="space-y-6"
           >
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              {slides[currentSlide].title.includes("FOTONUBE") ? (
+              {slides[currentSlide].title.includes('FOTONUBE') ? (
                 <>
-                  {slides[currentSlide].title.split("FOTONUBE")[0]}
+                  {slides[currentSlide].title.split('FOTONUBE')[0]}
                   <span className="text-cyan-400">FOTONUBE</span>
-                  {slides[currentSlide].title.split("FOTONUBE")[1]}
+                  {slides[currentSlide].title.split('FOTONUBE')[1]}
                 </>
               ) : (
                 slides[currentSlide].title
@@ -166,11 +166,10 @@ export default function HeroCarousel() {
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
-              index === currentSlide
-                ? "bg-cyan-400 scale-125"
-                : "bg-white/50 hover:bg-white/70"
-            }`}
+            className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide
+              ? 'bg-cyan-400 scale-125'
+              : 'bg-white/50 hover:bg-white/70'
+              }`}
             onMouseEnter={() => setIsAutoPlaying(false)}
             onMouseLeave={() => setIsAutoPlaying(true)}
           />
@@ -181,13 +180,13 @@ export default function HeroCarousel() {
       <div className="absolute bottom-0 left-0 w-full h-1 bg-black/20 z-30">
         <motion.div
           key={currentSlide}
-          initial={{ width: "0%" }}
-          animate={{ width: "100%" }}
-          transition={{ duration: 5, ease: "linear" }}
+          initial={{ width: '0%' }}
+          animate={{ width: '100%' }}
+          transition={{ duration: 5, ease: 'linear' }}
           className="h-full bg-cyan-400"
-          style={{ display: isAutoPlaying ? "block" : "none" }}
+          style={{ display: isAutoPlaying ? 'block' : 'none' }}
         />
       </div>
     </section>
-  );
+  )
 }

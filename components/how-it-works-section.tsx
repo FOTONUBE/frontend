@@ -13,15 +13,15 @@ export default function HowItWorksSection() {
       icon: Upload,
       title: "Sube tus fotos",
       description:
-        "Crea fácilmente tus álbumes de fotos desde tu laptop. Organiza y categoriza tus álbumes de manera intuitiva.",
+        "Crea tus álbumes de fotos desde tu compu de escritorio o laptop. Ofrece tus fotos en línea muy fácilmente.",
       color: "from-cyan-500 to-blue-600",
     },
     {
       number: "02",
       icon: Settings,
-      title: "Configura tu galería",
+      title: "Configura tus álbumes",
       description:
-        "Personaliza precios, descripciones y crea usuarios con contraseña para acceder a tus álbumes de fotos. Crea una experiencia única para tus clientes.",
+        "Personaliza precios de fotos y crea usuario con contraseña de acceso para cada álbum. Crea una experiencia única para tus clientes.",
       color: "from-blue-500 to-purple-600",
     },
     {
@@ -29,7 +29,7 @@ export default function HowItWorksSection() {
       icon: Users,
       title: "Comparte con clientes",
       description:
-        "Tus clientes podrán registrarse a FOTONUBE y acceder a los álbumes de fotos mediante el usuario y contraseña que les enviaste.",
+        "Tus clientes se registran a FOTONUBE, luego ingresan usuario y contraseña del álbum. Ya pueden comprar fotos en línea.",
       color: "from-purple-500 to-pink-600",
     },
     {
@@ -37,7 +37,7 @@ export default function HowItWorksSection() {
       icon: DollarSign,
       title: "Recibe pagos",
       description:
-        "Tus clientes compran fotos, de forma segura, directamente desde la plataforma. Tu recibes pagos seguros y automáticos por cada venta.",
+        "Tus clientes compran fotos en línea, de forma segura en FOTONUBE. Tu recibes pagos seguros y automáticos por cada venta.",
       color: "from-pink-500 to-red-600",
     },
   ];
@@ -180,30 +180,19 @@ export default function HowItWorksSection() {
               <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
                 ¿Quieres llevar tu negocio fotográfico al siguiente nivel?
               </h3>
-              <p className="text-xl text-gray-700 mb-8 max-w-2xl mx-auto leading-relaxed">
-                Sumate a la{" "}
-                <span className="font-bold">
-                  MASTERCLASS GRATUITA DE LANZAMIENTO
-                </span>{" "}
-                este <span className="font-bold">viernes 17 de octubre</span>
-                <br />
-                <span className="text-base text-gray-500">
-                  13:00 hs. ARG-URU / 14:00 hs. USA / 18:00 hs. ESP
-                </span>
+              <p className="text-xl text-gray-700 mb-8 max-w-2.5xl mx-auto leading-relaxed">
+                Cambia para siempre la forma de mostrar y vender tu trabajo como fotógrafo.
               </p>
 
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <a href="#contacto">
+              <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                <Link href="/register">
                   <Button
                     size="lg"
                     className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-10 py-4 rounded-full text-lg font-semibold shadow-lg hover:shadow-xl"
                   >
-                    SUSCRÍBETE AHORA
+                    REGISTRATE AHORA
                   </Button>
-                </a>
+                </Link>
               </motion.div>
             </motion.div>
           </div>

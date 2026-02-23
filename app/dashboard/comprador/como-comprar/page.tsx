@@ -21,20 +21,20 @@ const steps = [
   {
     title: "Elige formato",
     description:
-      "Selecciona entre digital, impreso o packs especiales (escolar/deportivo).",
+      "Selecciona entre foto digital o fotos impresas, en sus diferentes tamaños.",
     icon: <ShoppingCart className="w-10 h-10 text-cyan-600" />,
     color: "bg-cyan-50",
   },
   {
     title: "Finaliza tu compra",
     description:
-      "Agrega al carrito y completa la compra con tu medio de pago preferido.",
+      "Agrega al carrito tus fotos y completa la compra, abonando con Mercado Pago.",
     icon: <CreditCard className="w-10 h-10 text-cyan-600" />,
     color: "bg-cyan-50",
   },
   {
     title: "Recibe tus fotos",
-    description: "Recíbelas por correo.",
+    description: "Coordina con tu fotógrafo el método de envío de las fotos que compraste.",
     icon: <Download className="w-10 h-10 text-cyan-600" />,
     color: "bg-cyan-50",
   },
@@ -44,7 +44,7 @@ export default function HowToBuyPage() {
   return (
     <div className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
       <h1 className="text-3xl font-extrabold text-gray-900 text-center mb-12">
-        Cómo Comprar Fotos en FotoNube
+        Como comprar fotos en FOTONUBE
       </h1>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

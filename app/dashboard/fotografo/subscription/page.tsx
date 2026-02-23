@@ -32,22 +32,22 @@ const planFeatures: Record<
   ],
   Pro: [
     {
-      text: "Hasta 10 álbumes activos (máximo).",
+      text: "Hasta 10 álbumes (máximo).",
       icon: Check,
       color: "text-cyan-600",
     },
     {
-      text: "400 fotos por álbum activo (máximo).",
+      text: "Hasta 400 fotos por álbum (máximo).",
       icon: Check,
       color: "text-cyan-600",
     },
     {
-      text: "20 GB de recursos en la nube.",
+      text: "Hasta 20 GB de recursos en la nube.",
       icon: Check,
       color: "text-cyan-600",
     },
     {
-      text: "Comisión reducida al 9.99% por venta.",
+      text: "Comisión reducida por transacción 9.99%.",
       icon: Check,
       color: "text-cyan-600",
     },
@@ -96,20 +96,18 @@ export default function SubscriptionScreen() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className={`w-full max-w-4xl p-8 rounded-xl shadow-xl flex flex-col md:flex-row items-start md:items-center space-y-6 md:space-y-0 md:space-x-8 mb-12 border-t-4 ${
-          isUserPro
-            ? "border-indigo-600 bg-gradient-to-r from-indigo-50 to-indigo-100"
-            : "border-gray-300 bg-white"
-        }`}
+        className={`w-full max-w-4xl p-8 rounded-xl shadow-xl flex flex-col md:flex-row items-start md:items-center space-y-6 md:space-y-0 md:space-x-8 mb-12 border-t-4 ${isUserPro
+          ? "border-indigo-600 bg-gradient-to-r from-indigo-50 to-indigo-100"
+          : "border-gray-300 bg-white"
+          }`}
       >
         <div className="flex-1">
           <span className="inline-block px-3 py-1 text-sm font-semibold text-white bg-indigo-600 rounded-full mb-2">
             Tu Plan Actual
           </span>
           <h2
-            className={`text-3xl font-bold ${
-              isUserPro ? "text-indigo-800" : "text-gray-800"
-            }`}
+            className={`text-3xl font-bold ${isUserPro ? "text-indigo-800" : "text-gray-800"
+              }`}
           >
             {activeSubscription.plan.name}
           </h2>
@@ -156,7 +154,7 @@ export default function SubscriptionScreen() {
           <div className="w-full max-w-4xl mb-16 text-center">
             <h3 className="text-3xl font-bold text-gray-900 mb-6">
               ¡Es hora de suscribirte a{" "}
-              <span className="text-indigo-600">FotoNube Pro</span>!
+              <span className="text-indigo-600">FOTONUBE Pro</span>!
             </h3>
             <p className="text-lg text-gray-600 mb-8">
               Escoge el plan que mejor se adapte a tus necesidades y desbloquea
@@ -176,10 +174,10 @@ export default function SubscriptionScreen() {
           {/* Planes Pro */}
           <div className="w-full max-w-6xl">
             <h3 className="text-4xl font-extrabold text-gray-900 mb-2 text-center">
-              PROMO LANZAMIENTO
+              ESCOGE TU PLAN AHORA
             </h3>
             <p className="text-cyan-600 font-semibold mb-10 text-center">
-              por tiempo limitado
+              potencia tu negocio fotográfico
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -216,16 +214,15 @@ export default function SubscriptionScreen() {
                       <div className="bg-lime-400 font-bold p-3 rounded-md text-gray-900 w-full text-center">
                         <p className="text-sm">
                           Precio LANZAMIENTO <br />
-                          <span className="text-gray-800">
+                          {/*   <span className="text-gray-800">
                             Hasta el <b>31/10/2025</b>
-                          </span>
+                          </span> */}
                         </p>
                         <p className="text-3xl mt-1">U$S {usdLaunch}</p>
                       </div>
 
                       <p className="text-xs text-gray-500 mt-2 text-center">
-                        * El valor será cobrado en pesos argentinos al tipo de
-                        cambio oficial.
+                        * Este valor será cobrado en pesos argentinos a través de Mercado Pago.
                       </p>
 
                       <button
